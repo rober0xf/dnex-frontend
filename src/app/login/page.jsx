@@ -1,7 +1,11 @@
 "use client";
 
-const LOGIN_URL = "http://127.0.0.1:8000/api/token/pair";
+import { useRouter } from "next/navigation";
+
+const LOGIN_URL = "/api/login/";
+
 export default function LoginPage() {
+  const router = useRouter();
   async function handle_submit(event) {
     // prevent to show credentials in url
     event.preventDefault();
@@ -20,10 +24,9 @@ export default function LoginPage() {
       body: json_data,
     };
     const response = await fetch(LOGIN_URL, request_options);
-    const data = await response.json();
-    console.log(data);
     if (response.ok) {
       console.log("logged in");
+      router.replace("/home");
     }
   }
   return (
